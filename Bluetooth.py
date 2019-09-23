@@ -1,6 +1,7 @@
 # coding=utf-8
 from bluetooth import *
 from PyOBEX.client import Client
+import os
 
 
 def lookForNearbyDevices():
@@ -45,5 +46,6 @@ client = Client(host, port)
 client.connect()
 client.put("test.txt", "Hello world\n")
 client.disconnect()
-
 print "End of transmission"
+
+os.system("sudo btmgmt find |grep rssi |sort -n |uniq -w 33")
