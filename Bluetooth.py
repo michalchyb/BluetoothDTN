@@ -2,24 +2,30 @@
 from bluetooth import *
 from PyOBEX.client import Client
 import os
+from Helpers import *
+from Messages import *
 
+from bluetooth import *
 
-def lookForNearbyDevices():
-    print "performing inquiry..."
-    nearby_devices = discover_devices(lookup_names=True)
-    print "found %d devices" % len(nearby_devices)
-    for name, addr in nearby_devices:
-        print " %s - %s" % (addr, name)
-
-
-lookForNearbyDevices()
+lookForAllNearbyDevices()
 
 service_matches = find_service(name=b'OBEX Object Push')
 if len(service_matches) == 0:
-    print "nie moge znaleźć serwisu"
+    print Messages.canNotFindService
     sys.exit(0)
 else:
-    print "serwis znaleziony"
+    print Messages.serviceIsFound
+
+for x in range(len(service_matches)):
+    port = service_matches[x]["port"]
+    name = service_matches[x]["name"]
+    host = service_matches[x]["host"]
+    print"--------------------------------------"
+    print (service_matches[x])
+    print "name: " + name
+    print "port: " + str(port)
+    print "host: " + host
+    print"--------------------------------------"
 
 first_match = service_matches[0]
 port = first_match["port"]
@@ -48,4 +54,4 @@ client.put("test.txt", "Hello world\n")
 client.disconnect()
 print "End of transmission"
 
-os.system("sudo btmgmt find |grep rssi |sort -n |uniq -w 33")
+print str(cmdLine("sudo btmgmt find |grep rssi |sort -n |uniq -w 33")).split("\n")
