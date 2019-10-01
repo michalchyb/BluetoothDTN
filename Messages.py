@@ -3,5 +3,5 @@ class Messages:
     def __init__(self):
         pass
 
-    canNotFindService = "nie moge znaleźć "
-    serviceIsFound = "serwis znaleziony"
+    can_not_find_service = "nie moge znaleźć "
+    service_is_found = "serwis znaleziony"
