@@ -4,6 +4,7 @@ from bluetooth import *
 
 from Helpers import *
 from Messages import *
+
 #
 # service_matches = find_service(name=b'OBEX Object Push')
 # if len(service_matches) == 0:
@@ -52,4 +53,11 @@ from Messages import *
 #
 # look_for_all_nearby_devices()
 
-create_MAC_and_RSSI_dictionary(str(cmd_line("sudo btmgmt find |grep rssi |sort -n |uniq -w 33")))
+# create_MAC_and_RSSI_dictionary(str(cmd_line("sudo btmgmt find |grep rssi |sort -n |uniq -w 33")))
+
+mystring = "18:F0:E4:3A:5A:31"
+dictionery = create_MAC_and_RSSI_dictionary(cmd_line("sudo btmgmt find |grep rssi |sort -n |uniq -w 33"))
+for i in dictionery:
+    print i
+
+
