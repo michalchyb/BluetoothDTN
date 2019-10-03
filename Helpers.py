@@ -29,7 +29,7 @@ def create_MAC_and_RSSI_dictionary(s):
                 count = count + 1
                 words = line.split(' ')
                 if count % 2 == 1:
-                    dictionary[words[2]] = words[7]
+                    dictionary[words[2]] = words[7] + "\r\n"
                 else:
-                    dictionary[words[2]] = words[6]
-    print dictionary
+                    dictionary[words[2]] = words[6] + "\r\n"
+    return dictionary

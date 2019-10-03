@@ -55,9 +55,11 @@ from Messages import *
 
 # create_MAC_and_RSSI_dictionary(str(cmd_line("sudo btmgmt find |grep rssi |sort -n |uniq -w 33")))
 
-mystring = "18:F0:E4:3A:5A:31"
-dictionery = create_MAC_and_RSSI_dictionary(cmd_line("sudo btmgmt find |grep rssi |sort -n |uniq -w 33"))
-for i in dictionery:
-    print i
+# mystring = "18:F0:E4:3A:5A:31"
 
 
+dictionary = create_MAC_and_RSSI_dictionary(cmd_line("sudo btmgmt find |grep rssi |sort -n |uniq -w 33"))
+
+for key, val in dictionary.iteritems():
+    print key
+    print val
