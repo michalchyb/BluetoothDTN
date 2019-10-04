@@ -55,11 +55,16 @@ from Messages import *
 
 # create_MAC_and_RSSI_dictionary(str(cmd_line("sudo btmgmt find |grep rssi |sort -n |uniq -w 33")))
 
-# mystring = "18:F0:E4:3A:5A:31"
+mac_address_of_one_device = "18:F0:E4:3A:5A:31"
 
+# dictionary = create_MAC_and_RSSI_dictionary(cmd_line("sudo btmgmt find |grep rssi |sort -n |uniq -w 33"))
+dictionary = {"18:F0:E4:3A:5A:31": "-49"}
 
-dictionary = create_MAC_and_RSSI_dictionary(cmd_line("sudo btmgmt find |grep rssi |sort -n |uniq -w 33"))
-
-for key, val in dictionary.iteritems():
-    print key
-    print val
+i = 0
+while i < 5:
+    for key, val in dictionary.iteritems():
+        print val
+        integerValue = int(val)
+        if key == mac_address_of_one_device and integerValue < 50:
+            sendFile()
+        i += 1

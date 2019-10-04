@@ -33,3 +33,7 @@ def create_MAC_and_RSSI_dictionary(s):
                 else:
                     dictionary[words[2]] = words[6] + "\r\n"
     return dictionary
+
+
+def sendFile():
+    print "will send a file"
