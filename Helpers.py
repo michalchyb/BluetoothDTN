@@ -1,5 +1,6 @@
-from bluetooth import *
 from subprocess import PIPE, Popen
+
+from bluetooth import *
 
 
 def look_for_all_nearby_devices():
@@ -29,9 +30,9 @@ def create_MAC_and_RSSI_dictionary(s):
                 count = count + 1
                 words = line.split(' ')
                 if count % 2 == 1:
-                    dictionary[words[2]] = words[7] + "\r\n"
+                    dictionary[words[2]] = words[7]
                 else:
-                    dictionary[words[2]] = words[6] + "\r\n"
+                    dictionary[words[2]] = words[6]
     return dictionary
 
 
