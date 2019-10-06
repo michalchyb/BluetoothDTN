@@ -1,3 +1,4 @@
+# coding=utf-8
 from subprocess import PIPE, Popen
 
 from bluetooth import *
@@ -5,13 +6,14 @@ from bluetooth import *
 from Messages import *
 
 
-def find_OBEX_services_devices():
+def find_obex_services_devices():
     service_matches = find_service(name=b'OBEX Object Push')
-    if len(service_matches) == 0:
+    number_of_obex_devices = len(service_matches)
+    if number_of_obex_devices == 0:
         print Messages.can_not_find_service
         sys.exit(0)
     else:
-        print Messages.service_is_found
+        print str(number_of_obex_devices) + " " + Messages.service_is_found
 
 
 def look_for_all_nearby_devices():
@@ -49,3 +51,16 @@ def create_MAC_and_RSSI_dictionary(s):
 
 def sendFile():
     print "will send a file"
+
+
+def filtering(list_of_trusted_devices, dictionary):
+    print dictionary
+    print list_of_trusted_devices
+    flag = False
+    for key, val in dictionary.iteritems():
+        for i in list_of_trusted_devices:
+            if key == i and int(val) > 50:
+                flag = True
+                sendFile()
+            else:
+                flag = False
