@@ -2,13 +2,24 @@ from subprocess import PIPE, Popen
 
 from bluetooth import *
 
+from Messages import *
+
+
+def find_OBEX_services_devices():
+    service_matches = find_service(name=b'OBEX Object Push')
+    if len(service_matches) == 0:
+        print Messages.can_not_find_service
+        sys.exit(0)
+    else:
+        print Messages.service_is_found
+
 
 def look_for_all_nearby_devices():
     print "performing inquiry..."
     nearby_devices = discover_devices(lookup_names=True)
     print "found %d devices" % len(nearby_devices)
-    for name, addr in nearby_devices:
-        print " %s - %s" % (addr, name)
+    for name, mac_address in nearby_devices:
+        print " %s - %s" % (mac_address, name)
 
 
 def cmd_line(command):
