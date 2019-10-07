@@ -54,13 +54,15 @@ def sendFile():
 
 
 def filtering(list_of_trusted_devices, dictionary):
-    print dictionary
-    print list_of_trusted_devices
     flag = False
     for key, val in dictionary.iteritems():
         for i in list_of_trusted_devices:
-            if key == i and int(val) > 50:
-                flag = True
-                sendFile()
-            else:
-                flag = False
+            checking_key_and_rssi(i, key, val)
+
+
+def checking_key_and_rssi(i, key, val):
+    if key == i and int(val) > 50:
+        flag = True
+        sendFile()
+    else:
+        flag = False
