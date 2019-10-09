@@ -7,6 +7,7 @@ from Messages import *
 
 
 def find_obex_services_devices():
+    print "start looking for obex devices..."
     service_matches = find_service(name=b'OBEX Object Push')
     number_of_obex_devices = len(service_matches)
     if number_of_obex_devices == 0:
@@ -14,6 +15,7 @@ def find_obex_services_devices():
         sys.exit(0)
     else:
         print str(number_of_obex_devices) + " " + Messages.service_is_found
+    print "end looking for obex devices..."
 
 
 def look_for_all_nearby_devices():
@@ -34,6 +36,7 @@ def cmd_line(command):
 
 
 def create_MAC_and_RSSI_dictionary(s):
+    print "start creating dictionary from command line..."
     dictionary = {}
     for line in s.split('\n'):
         line = line.strip()
@@ -46,23 +49,23 @@ def create_MAC_and_RSSI_dictionary(s):
                     dictionary[words[2]] = words[7]
                 else:
                     dictionary[words[2]] = words[6]
+    print dictionary
+    print "end creating dictionary from command line..."
     return dictionary
 
 
 def sendFile():
+    find_obex_services_devices()
     print "will send a file"
 
 
-def filtering(list_of_trusted_devices, dictionary):
-    flag = False
+def filtering_to_what_devices_send_file(list_of_trusted_devices, dictionary):
     for key, val in dictionary.iteritems():
         for i in list_of_trusted_devices:
-            checking_key_and_rssi(i, key, val)
+            if key == i and int(val) > -50:
+                sendFile()
 
 
 def checking_key_and_rssi(i, key, val):
-    if key == i and int(val) > 50:
-        flag = True
+    if key == i and int(val) > -50:
         sendFile()
-    else:
-        flag = False

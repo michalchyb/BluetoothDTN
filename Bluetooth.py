@@ -1,6 +1,7 @@
 # coding=utf-8
 import time
 from Helpers import *
+from Messages import *
 import threading
 
 #
@@ -55,17 +56,16 @@ list_of_trusted_devices = ["18:F0:E4:3A:5A:31"]
 
 # filtering(list_of_trusted_devices, dictionary_MAC_and_rssi)
 
-
 timeout = 60  # [seconds]
 
 time_start = time.time()
 
+WAIT_SECONDS_FOR_THREAD = 15
 
-WAIT_SECONDS_FOR_THREAD = 20
-
+print "start of program"
 while time.time() < time_start + timeout:
-    temp = create_MAC_and_RSSI_dictionary(cmd_line("sudo btmgmt find |grep rssi |sort -n |uniq -w 33"))
-    filtering(list_of_trusted_devices, temp)
+    temp = create_MAC_and_RSSI_dictionary(cmd_line(Messages.linux_command_for_searching_devices))
+    filtering_to_what_devices_send_file(list_of_trusted_devices, temp)
     time.sleep(WAIT_SECONDS_FOR_THREAD)
 
-print "end"
+print "end of program"
