@@ -12,10 +12,12 @@ def find_obex_services_devices():
     number_of_obex_devices = len(service_matches)
     if number_of_obex_devices == 0:
         print Messages.can_not_find_service
+        print "end looking for obex devices..."
         sys.exit(0)
     else:
         print str(number_of_obex_devices) + " " + Messages.service_is_found
-    print "end looking for obex devices..."
+        print "end looking for obex devices..."
+        return service_matches
 
 
 def look_for_all_nearby_devices():
@@ -59,13 +61,13 @@ def sendFile():
     print "will send a file"
 
 
-def filtering_to_what_devices_send_file(list_of_trusted_devices, dictionary):
-    for key, val in dictionary.iteritems():
-        for i in list_of_trusted_devices:
-            if key == i and int(val) > -50:
-                sendFile()
-
-
 def checking_key_and_rssi(i, key, val):
     if key == i and int(val) > -50:
-        sendFile()
+        print "key is on the list and rssi is bigger then -50 "
+
+
+def main(list_of_trusted_devices, dictionary, obex_devices):
+    for key, val in dictionary.iteritems():
+        for i in list_of_trusted_devices:
+            checking_key_and_rssi(i, key, val)
+            # if(obex_devices)
