@@ -61,13 +61,12 @@ def sendFile():
     print "will send a file"
 
 
-def checking_key_and_rssi(i, key, val):
-    if key == i and int(val) > -50:
-        print "key is on the list and rssi is bigger then -50 "
+def checking_key_and_rssi(i, key, val, rssi_value):
+    if key == i and int(val) > rssi_value:
+        print "key is on the list and rssi is bigger then" + rssi_value
 
 
-def main(list_of_trusted_devices, dictionary, obex_devices):
+def main(list_of_trusted_devices, dictionary, obex_devices, rssi_value):
     for key, val in dictionary.iteritems():
         for i in list_of_trusted_devices:
-            checking_key_and_rssi(i, key, val)
-            # if(obex_devices)
+            checking_key_and_rssi(i, key, val, rssi_value)
