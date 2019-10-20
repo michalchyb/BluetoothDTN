@@ -57,7 +57,6 @@ def create_MAC_and_RSSI_dictionary(s):
 
 
 def sendFile():
-    find_obex_services_devices()
     print "will send a file"
 
 
@@ -68,5 +67,7 @@ def checking_key_and_rssi(i, key, val, rssi_value):
 
 def main(list_of_trusted_devices, dictionary, obex_devices, rssi_value):
     for key, val in dictionary.iteritems():
-        for i in list_of_trusted_devices:
-            checking_key_and_rssi(i, key, val, rssi_value)
+        if key in obex_devices:
+            for i in list_of_trusted_devices:
+                checking_key_and_rssi(i, key, val, rssi_value)
+                sendFile()
