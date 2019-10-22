@@ -16,9 +16,8 @@ while time.time() < PROGRAM_TIME_START + PROGRAM_WILL_WORK_FOR_THIS_TIME:
     temp_dictionary = create_MAC_and_RSSI_dictionary(cmd_line(temporary_string_with_tests_values))
     obex_devices = find_obex_services_devices()
 
-    #temp = create_MAC_and_RSSI_dictionary(cmd_line(Messages.linux_command_for_searching_devices))
+    # temp = create_MAC_and_RSSI_dictionary(cmd_line(Messages.linux_command_for_searching_devices))
     main(list_of_trusted_devices, temp_dictionary, obex_devices, RSSI_VALUE)
-
     time.sleep(WAIT_SECONDS_FOR_THREAD)
 
 print "end of program"
