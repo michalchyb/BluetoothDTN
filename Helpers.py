@@ -1,6 +1,7 @@
 # coding=utf-8
 from subprocess import PIPE, Popen
 
+from PyOBEX.client import Client
 from bluetooth import *
 
 from Messages import *
@@ -56,8 +57,17 @@ def create_MAC_and_RSSI_dictionary(s):
     return dictionary
 
 
-def sendFile():
+def sendFile(service_matches):
     print "will send a file"
+    first_match = service_matches[0]
+    port = first_match["port"]
+    name = first_match["name"]
+    host = first_match["host"]
+    print("Connecting to \"%s\" on %s" % (name, host))
+    client = Client(host, port)
+    client.connect()
+    client.put("test.txt", "Hello world\n")
+    client.disconnect()
 
 
 def checking_key_and_rssi(i, key, val, rssi_value):
@@ -70,4 +80,4 @@ def main(list_of_trusted_devices, dictionary, obex_devices, rssi_value):
         if key in obex_devices:
             for i in list_of_trusted_devices:
                 checking_key_and_rssi(i, key, val, rssi_value)
-                sendFile()
+                sendFile(obex_devices)
