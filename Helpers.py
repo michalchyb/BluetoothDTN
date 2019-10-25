@@ -66,17 +66,17 @@ def sendFile(name, host, port):
     client.disconnect()
 
 
-def checking_key_and_rssi(i, key, val, rssi_value):
-    if key == i and int(val) > rssi_value:
-        print "key is on the list and rssi is bigger then" + rssi_value
+def get_host_data(device):
+    host = device["host"]
+    port = device["port"]
+    name = device["name"]
+    return host, name, port
 
 
 def main(list_of_trusted_devices, dictionary, obex_devices, rssi_value):
     for key, val in dictionary.iteritems():
         for i in list_of_trusted_devices:
             for device in obex_devices:
-                host = device["host"]
-                port = device["port"]
-                name = device["name"]
-                if key == host and val > -50:
+                host, name, port = get_host_data(device)
+                if key == host and val > rssi_value:
                     sendFile(name, host, port)
