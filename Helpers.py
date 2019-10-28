@@ -5,6 +5,7 @@ from PyOBEX.client import Client
 from bluetooth import *
 
 from Messages import *
+from FileData import *
 
 
 def find_obex_services_devices():
@@ -64,12 +65,6 @@ def sendFile(name, host, port):
     file_to_send = read_file()
     client.put("file.txt", file_to_send)
     client.disconnect()
-
-
-def read_file():
-    f = open("file.txt", "r")
-    file_string = str(f.read())
-    return file_string
 
 
 def get_host_data(device):
