@@ -58,15 +58,18 @@ def create_MAC_and_RSSI_dictionary(s):
 
 
 def sendFile(name, host, port):
-    server_socket = BluetoothSocket(RFCOMM)
+    print("Connecting to \"%s\" on %s" % (name, host))
+    client = Client(host, port)
+    client.connect()
+    file_to_send = read_file()
+    client.put("file.txt", file_to_send)
+    client.disconnect()
 
-    server_socket.bind(("", 3))
-    server_socket.listen(1)
-    client_socket, address = server_socket.accept()
-    data = client_socket.recv(1024)
-    print "received [%s]" % data
-    client_socket.close()
-    server_socket.close()
+
+def read_file():
+    f = open("file.txt", "r")
+    file_string = str(f.read())
+    return file_string
 
 
 def get_host_data(device):
