@@ -7,6 +7,9 @@ from bluetooth import *
 from Messages import *
 from FileData import *
 
+from zipfile import ZipFile
+import os
+
 
 def find_obex_services_devices():
     print "start looking for obex devices..."
@@ -71,13 +74,14 @@ def get_host_data(device):
     host = device["host"]
     port = device["port"]
     name = device["name"]
-    return host, name, port
+    protocol = device["protocol"]
+    return host, name, port, protocol
 
 
 def main(list_of_trusted_devices, dictionary, obex_devices, rssi_value):
     for key, val in dictionary.iteritems():
         for i in list_of_trusted_devices:
             for device in obex_devices:
-                host, name, port = get_host_data(device)
+                host, name, port, protocol = get_host_data(device)
                 if key == host and val > rssi_value:
                     sendFile(name, host, port)
