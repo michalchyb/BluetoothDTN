@@ -1,4 +1,4 @@
 def read_file():
-    f = open("file.txt", "r")
-    file_string = str(f.read())
-    return file_string
+    with open('file.txt', 'r') as file:
+        data = file.read().replace('\n', '')
+        return data
