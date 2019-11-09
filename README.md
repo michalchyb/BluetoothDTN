@@ -9,3 +9,17 @@ To install the package alongside other packages and modules in your Python insta
 python setup.py install
 
 You may need to become the root user or administrator to do this.
+
+
+# Available ports
+
+bluetooth RFCOMM ports only go up to 25. Every other is simply an 'Invalid Argument'
+
+
+# String error
+
+Traceback (most recent call last):
+  File "rfcomm-client.py", line 41, in <module>
+    sock.connect((host, port))
+  File "<string>", line 5, in connect
+bluetooth.btcommon.BluetoothError: (22, 'Invalid argument')
