@@ -1,12 +1,18 @@
 from bluetooth import *
 
-# Create the client socket
-client_socket = BluetoothSocket(RFCOMM)
 
-client_socket.connect(("64:27:37:b7:91:55", 3))
+def client(host, port):
+    s = BluetoothSocket(RFCOMM)
 
-client_socket.send("Hello World")
+    s.connect((host, port))
 
-print "Finished"
+    while True:
+        message = raw_input('Send:')
+        if not message: return
+        s.send(message)
+        data = s.recv(1024)
+        print 'Received', data
+        s.close()
 
-client_socket.close()
+
+client(sys.argv[1], 8888)

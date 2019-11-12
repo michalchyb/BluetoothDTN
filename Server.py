@@ -1,15 +1,18 @@
 from bluetooth import *
 
-server_socket = BluetoothSocket(RFCOMM)
 
-server_socket.bind(("", 3))
-server_socket.listen(1)
+def server(s):
+    conn, addr = s.accept()
+    print 'Connected by', addr
 
-client_socket, address = server_socket.accept()
+    while True:
+        data = conn.recv(1024)
+        if not data: break
+        conn.send(data)
+    conn.close()
 
-data = client_socket.recv(1024)
 
-print "received [%s]" % data
-
-client_socket.close()
-server_socket.close()
+s = BluetoothSocket(RFCOMM)
+s.bind(('', 8888))
+s.listen(1)
+server(s)
