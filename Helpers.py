@@ -29,7 +29,7 @@ def look_for_all_nearby_devices():
     print "performing inquiry..."
     nearby_devices = discover_devices(lookup_names=True)
     print "found %d devices" % len(nearby_devices)
-    for name, mac_address in nearby_devices:
+    for name, mac_address, port in nearby_devices:
         print " %s - %s" % (mac_address, name)
 
 

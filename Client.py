@@ -1,7 +1,10 @@
+# echoclient.py
+import sys
 from bluetooth import *
 
 
 def client(host, port):
+    print "Client started"
     s = BluetoothSocket(RFCOMM)
 
     s.connect((host, port))
@@ -11,7 +14,7 @@ def client(host, port):
         if not message: return
         s.send(message)
         data = s.recv(1024)
-        print 'Received', data
+        print 'Received', `data`
         s.close()
 
 

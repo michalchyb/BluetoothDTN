@@ -23,3 +23,6 @@ Traceback (most recent call last):
     sock.connect((host, port))
   File "<string>", line 5, in connect
 bluetooth.btcommon.BluetoothError: (22, 'Invalid argument')
+
+# Start OBEX
+sudo obexpushd -B -n

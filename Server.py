@@ -1,7 +1,10 @@
+# echoserver.py 
+
 from bluetooth import *
 
 
 def server(s):
+    print "Server started"
     conn, addr = s.accept()
     print 'Connected by', addr
 
