@@ -1,21 +1,15 @@
-# echoserver.py 
-
 from bluetooth import *
 
+server_socket = BluetoothSocket(RFCOMM)
 
-def server(s):
-    print "Server started"
-    conn, addr = s.accept()
-    print 'Connected by', addr
+server_socket.bind(("", 3))
+server_socket.listen(1)
 
-    while True:
-        data = conn.recv(1024)
-        if not data: break
-        conn.send(data)
-    conn.close()
+client_socket, address = server_socket.accept()
 
+data = client_socket.recv(1024)
 
-s = BluetoothSocket(RFCOMM)
-s.bind(('', 8888))
-s.listen(1)
-server(s)
+print "received [%s]" % data
+
+client_socket.close()
+server_socket.close()
