@@ -1,14 +1,10 @@
 # coding=utf-8
 from subprocess import PIPE, Popen
 
-from PyOBEX.client import Client
 from bluetooth import *
-
+from Client import *
+from Server import *
 from Messages import *
-from FileData import *
-
-from zipfile import ZipFile
-import os
 
 
 def find_obex_services_devices():
@@ -63,11 +59,8 @@ def create_MAC_and_RSSI_dictionary(s):
 
 def sendFile(name, host, port):
     print("Connecting to \"%s\" on %s" % (name, host))
-    client = Client(host, port)
-    client.connect()
-    file_to_send = read_file()
-    client.put("file.txt", file_to_send)
-    client.disconnect()
+    run_server(port)
+    run_client(name, host, port)
 
 
 def get_host_data(device):
