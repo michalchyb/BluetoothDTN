@@ -76,5 +76,9 @@ def main(list_of_trusted_devices, dictionary, obex_devices, rssi_value):
         for i in list_of_trusted_devices:
             for device in obex_devices:
                 host, name, port, protocol = get_host_data(device)
-                if key == host and val > rssi_value:
-                    sendFile(name, host, port)
+                check_conditions_for_sending_and_send_file(host, key, name, port, rssi_value, val)
+
+
+def check_conditions_for_sending_and_send_file(host, key, name, port, rssi_value, val):
+    if key == host and val > rssi_value:
+        sendFile(name, host, port)
