@@ -18,7 +18,11 @@ def find_obex_services_devices():
     else:
         print str(number_of_obex_devices) + " " + Messages.service_is_found
         print "end looking for obex devices..."
-        return service_matches
+        temp_list = []
+        for i in service_matches:
+            # host = i["host"]
+            temp_list.append(get_host_data(i))
+        return temp_list
 
 
 def look_for_all_nearby_devices():
@@ -73,10 +77,9 @@ def get_host_data(device):
 
 def main(list_of_trusted_devices, dictionary, obex_devices, rssi_value):
     for key, val in dictionary.iteritems():
-        for i in list_of_trusted_devices:
-            for device in obex_devices:
-                host, name, port, protocol = get_host_data(device)
-                check_conditions_for_sending_and_send_file(host, key, name, port, rssi_value, val)
+        if key in list_of_trusted_devices and key in obex_devices:
+            host, name, port, protocol = get_host_data(key)
+            check_conditions_for_sending_and_send_file(host, key, name, port, rssi_value, val)
 
 
 def check_conditions_for_sending_and_send_file(host, key, name, port, rssi_value, val):
