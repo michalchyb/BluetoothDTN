@@ -18,11 +18,12 @@ def find_obex_services_devices():
     else:
         print str(number_of_obex_devices) + " " + Messages.service_is_found
         print "end looking for obex devices..."
-        temp_list = []
-        for i in service_matches:
-            # host = i["host"]
-            temp_list.append(get_host_data(i))
-        return temp_list
+        return service_matches
+        # temp_list = []
+        # for i in service_matches:
+        #     # host = i["host"]
+        #     temp_list.append(get_host_data(i))
+        # return temp_list
 
 
 def look_for_all_nearby_devices():
@@ -75,13 +76,23 @@ def get_host_data(device):
     return host, name, port, protocol
 
 
-def main(list_of_trusted_devices, dictionary, obex_devices, rssi_value):
-    for key, val in dictionary.iteritems():
-        if key in list_of_trusted_devices and key in obex_devices:
-            host, name, port, protocol = get_host_data(key)
-            check_conditions_for_sending_and_send_file(host, key, name, port, rssi_value, val)
+def get_mac_addresses(obex_devices):
+    lists_mac_addresses_in_obex_devices = []
+    for service in obex_devices:
+        lists_mac_addresses_in_obex_devices.append(service['host'])
+    return lists_mac_addresses_in_obex_devices
 
 
 def check_conditions_for_sending_and_send_file(host, key, name, port, rssi_value, val):
     if key == host and val > rssi_value:
         sendFile(name, host, port)
+
+
+def main(list_of_trusted_devices, dictionary, obex_devices, rssi_value):
+    for key, val in dictionary.iteritems():
+        mac_list_obex_devices = get_mac_addresses(obex_devices)
+        if key in list_of_trusted_devices and key in mac_list_obex_devices:
+            for device in obex_devices:
+                if key == device['host']:
+                    host, name, port, protocol = get_host_data(device)
+                    check_conditions_for_sending_and_send_file(host, key, name, port, rssi_value, val)
