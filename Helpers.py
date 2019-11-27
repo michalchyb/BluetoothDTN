@@ -62,10 +62,9 @@ def create_MAC_and_RSSI_dictionary(s):
     return dictionary
 
 
-def sendFile(name, host, port):
-    print("Connecting to \"%s\" on %s" % (name, host))
-    run_server(port)
-    run_client(name, host, port)
+def sendFile(name):
+    print("Connecting to \"%s\"" % name)
+    run_client(name)
 
 
 def get_host_data(device):
@@ -83,17 +82,19 @@ def get_mac_addresses(obex_devices):
     return lists_mac_addresses_in_obex_devices
 
 
-def check_conditions_for_sending_and_send_file(host, key, name, port, rssi_value, val):
+def check_conditions_for_sending_and_send_file(host, key, port, rssi_value, val):
     # if key == host and val > rssi_value:
-    if rssi_value > val:
-        sendFile(name, host, port)
+    if val > rssi_value:
+        sendFile(host)
+    else:
+        print "rssi conditions check :  FALSE"
 
 
 def main(list_of_trusted_devices, dictionary, obex_devices, rssi_value):
-    for key, val in dictionary.iteritems():
+ SERVICE_AVAILABILITY_ATTRID    for key, val in dictionary.iteritems():
         mac_list_obex_devices = get_mac_addresses(obex_devices)
         if key in list_of_trusted_devices and key in mac_list_obex_devices:
             for device in obex_devices:
                 if key == device['host']:
                     host, name, port, protocol = get_host_data(device)
-                    check_conditions_for_sending_and_send_file(host, key, name, port, rssi_value, val)
+                    check_conditions_for_sending_and_send_file(host, key, port, rssi_value, val)
