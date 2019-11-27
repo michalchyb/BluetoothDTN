@@ -84,7 +84,8 @@ def get_mac_addresses(obex_devices):
 
 
 def check_conditions_for_sending_and_send_file(host, key, name, port, rssi_value, val):
-    if key == host and val > rssi_value:
+    # if key == host and val > rssi_value:
+    if rssi_value > val:
         sendFile(name, host, port)
 
 
