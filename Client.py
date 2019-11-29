@@ -1,4 +1,5 @@
 from bluetooth import *
+from FileData import *
 
 
 def run_client(host):
@@ -7,7 +8,8 @@ def run_client(host):
     client_socket = BluetoothSocket(RFCOMM)
     client_socket.connect((host, setting_port))
     print "connect to " + host
-    client_socket.send("Hello World")
+    data = read_zip_file()
+    client_socket.send(data)
     print "Finished"
     client_socket.close()
 
