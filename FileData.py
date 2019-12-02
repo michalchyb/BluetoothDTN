@@ -1,3 +1,6 @@
+import os
+
+
 def read_file():
     with open('fileToSend.txt', 'r') as file:
         data = file.read().replace('\n', '')
@@ -12,11 +15,28 @@ def write_file(data):
 def read_zip_file():
     f = open("file.zip", "rb")
     file = f.read()
-    print (file)
     f.close()
+    return file
 
 
 def write_zip_file(data):
     f = open("file.zip", "wb")
     f.write(data)
     f.close()
+
+
+def file_list():
+    path = '/home/michalch/PycharmProjects'
+
+    files = []
+    # r=root, d=directories, f = files
+    for r, d, f in os.walk(path):
+        for file in f:
+            if '.zip' in file:
+                files.append(os.path.join(r, file))
+
+    for f in files:
+        print(f)
+
+
+file_list()
