@@ -1,4 +1,5 @@
 import os
+from zipfile import ZipFile
 
 
 def read_file():
@@ -27,9 +28,7 @@ def write_zip_file(data):
 
 def file_list():
     path = '/home/michalch/PycharmProjects'
-
     files = []
-    # r=root, d=directories, f = files
     for r, d, f in os.walk(path):
         for file in f:
             if '.zip' in file:
@@ -39,4 +38,6 @@ def file_list():
         print(f)
 
 
-file_list()
+def unzip_file():
+    with ZipFile('/home/michalch/PycharmProjects/tests/file.zip', 'r') as zipObj:
+        zipObj.extractall('temp')
