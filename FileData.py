@@ -42,8 +42,8 @@ def get_file_list():
     return files
 
 
-def unzip_file():
-    with ZipFile(get_current_path() + '/file.zip', 'r') as zipObj:
+def unzip_file(file_name):
+    with ZipFile(get_current_path() + Messages.slash + "temp" + Messages.slash + file_name, 'r') as zipObj:
         zipObj.extractall('temp')
 
 
@@ -58,10 +58,11 @@ def create_directory(folder_name):
 
 
 def remove_directory(folder_name):
-    os.rmdir(folder_name)
+    shutil.rmtree(get_current_path() + Messages.slash + folder_name)
+    # os.rmdir(folder_name)
 
 
-def check_file_zip(file_name):
+def check_file_existing(file_name):
     file_list = get_file_list()
     if get_current_path() + Messages.slash + file_name in file_list:
         return True
@@ -76,3 +77,12 @@ def move_file_to_directory(destination_folder_name, file_to_move):
     source_file_path = get_current_path() + Messages.slash + file_to_move
     destination_file_path = get_current_path() + Messages.slash + destination_folder_name + Messages.slash + file_to_move
     shutil.move(source_file_path, destination_file_path)
+
+
+def file_manager():
+    prepare_directory()
+    if check_file_existing("file.zip"):
+        move_file_to_directory('temp', 'file.zip')
+        unzip_file("file.zip")
+
+file_manager()
