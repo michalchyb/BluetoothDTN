@@ -38,13 +38,24 @@ def get_file_list():
     for r, d, f in os.walk(get_current_path()):
         for file in f:
             if '.zip' in file:
-                files.append(os.path.join(r, file))
+                files.append(os.path.join(file))
     return files
 
 
 def unzip_file(file_name):
     with ZipFile(get_current_path() + Messages.slash + "temp" + Messages.slash + file_name, 'r') as zipObj:
         zipObj.extractall('temp')
+
+
+def zip_file():
+    with ZipFile('files.zip', 'w') as zipObj:
+        for folderName, subfolders, filenames in os.walk(os.getcwd() + Messages.slash + 'files_to_zip'):
+            for filename in filenames:
+                filePath = os.path.join(folderName, filename)
+                zipObj.write(filePath)
+
+
+zip_file()
 
 
 def create_directory(folder_name):
@@ -85,4 +96,10 @@ def file_manager():
         move_file_to_directory('temp', 'file.zip')
         unzip_file("file.zip")
 
+# prepare_directory()
+# remove_directory('temp')
+# remove_directory('final data')
+
+remove_directory('temp')
+remove_directory('final data')
 file_manager()
