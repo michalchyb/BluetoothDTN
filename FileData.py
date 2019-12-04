@@ -55,9 +55,6 @@ def zip_file():
                 zipObj.write(filePath)
 
 
-zip_file()
-
-
 def create_directory(folder_name):
     path = get_current_path() + Messages.slash + folder_name
     try:
@@ -69,8 +66,12 @@ def create_directory(folder_name):
 
 
 def remove_directory(folder_name):
-    shutil.rmtree(get_current_path() + Messages.slash + folder_name)
-    # os.rmdir(folder_name)
+    if (check_if_directory_existing(folder_name)):
+        shutil.rmtree(get_current_path() + Messages.slash + folder_name)
+
+
+def check_if_directory_existing(directory):
+    return os.path.isdir(os.getcwd() + Messages.slash + directory)
 
 
 def check_file_existing(file_name):
@@ -96,9 +97,11 @@ def file_manager():
         move_file_to_directory('temp', 'file.zip')
         unzip_file("file.zip")
 
+
 # prepare_directory()
 # remove_directory('temp')
 # remove_directory('final data')
+
 
 remove_directory('temp')
 remove_directory('final data')
