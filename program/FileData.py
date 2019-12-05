@@ -68,7 +68,7 @@ def get_file_list():
 def create_directory(folder_name):
     path = os.getcwd()
     try:
-        os.mkdir(path)
+        os.mkdir(path + Messages.slash + folder_name)
     except OSError:
         print ("Directory %s already existed or creation of the directory %s failed" % (path, path))
     else:
@@ -92,7 +92,7 @@ def check_file_existing(file_name):
 
 def prepare_directory():
     create_directory("temp")
-    create_directory("final data")
+    create_directory("repository")
 
 
 def move_file_to_directory(destination_folder_name, file_to_move):
@@ -111,7 +111,16 @@ def file_manager():
 #########################################################
 #### Methods for Certs
 #########################################################
-#
+def checking_metadata_file():
+    list = []
+    for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
+        if file.startswith('DTN_MASTER_METADATA_'):
+            return True
+        else:
+            return False
+
+checking_metadata_file()
+
 remove_directory('temp')
-remove_directory('final data')
+remove_directory('repository')
 file_manager()
