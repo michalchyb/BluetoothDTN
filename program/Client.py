@@ -9,6 +9,7 @@ def run_client(host):
     client_socket.connect((host, setting_port))
     print "connect to " + host
     data = read_zip_file()
+    print data
     client_socket.send(data)
     print "Finished"
     client_socket.close()
@@ -17,5 +18,5 @@ def run_client(host):
 def set_port(host):
     temp_port = 0
     if host == "5C:F3:70:6C:72:02":
-        temp_port = 1
+        temp_port = 2
     return temp_port

@@ -5,6 +5,7 @@ from Messages import *
 from Server import *
 from Client import *
 
+
 dictionary = {'FC:03:9F:41:0C:49': '-92', '64:27:37:B7:91:56': '-65', '18:F0:E4:3A:5A:31': '-45',
               '74:40:BB:98:88:A4': '-96', '59:AF:54:17:09:22': '-93', '5C:F3:70:6C:72:02': '-90'}
 list_of_available_devices_to_send_file = ["18:F0:E4:3A:5A:31", "5C:F3:70:6C:72:02"]

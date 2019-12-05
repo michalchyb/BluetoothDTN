@@ -91,7 +91,7 @@ def check_conditions_for_sending_and_send_file(host, key, port, rssi_value, val)
 
 
 def main(list_of_trusted_devices, dictionary, obex_devices, rssi_value):
- SERVICE_AVAILABILITY_ATTRID    for key, val in dictionary.iteritems():
+    for key, val in dictionary.iteritems():
         mac_list_obex_devices = get_mac_addresses(obex_devices)
         if key in list_of_trusted_devices and key in mac_list_obex_devices:
             for device in obex_devices:

@@ -5,6 +5,9 @@ import shutil
 from Messages import *
 
 
+#########################################################
+#### Methods for reading/writing files
+#########################################################
 def read_file():
     with open('fileToSend.txt', 'r') as file:
         data = file.read().replace('\n', '')
@@ -29,18 +32,9 @@ def write_zip_file(data):
     f.close()
 
 
-def get_current_path():
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-def get_file_list():
-    files = []
-    for r, d, f in os.walk(get_current_path()):
-        for file in f:
-            if '.zip' in file:
-                files.append(os.path.join(file))
-    return files
-
+#########################################################
+#### Methods for zip
+#########################################################
 
 def unzip_file(file_name):
     with ZipFile(get_current_path() + Messages.slash + "temp" + Messages.slash + file_name, 'r') as zipObj:
@@ -55,8 +49,24 @@ def zip_file():
                 zipObj.write(filePath)
 
 
+#########################################################
+#### Methods for handling files
+#########################################################
+def get_current_path():
+    return os.path.dirname(os.path.abspath(__file__))
+
+
+def get_file_list():
+    files = []
+    for r, d, f in os.walk(get_current_path()):
+        for file in f:
+            if '.zip' in file:
+                files.append(os.path.join(file))
+    return files
+
+
 def create_directory(folder_name):
-    path = get_current_path() + Messages.slash + folder_name
+    path = os.getcwd()
     try:
         os.mkdir(path)
     except OSError:
@@ -66,8 +76,8 @@ def create_directory(folder_name):
 
 
 def remove_directory(folder_name):
-    if (check_if_directory_existing(folder_name)):
-        shutil.rmtree(get_current_path() + Messages.slash + folder_name)
+    if check_if_directory_existing(folder_name):
+        shutil.rmtree(os.getcwd() + Messages.slash + folder_name)
 
 
 def check_if_directory_existing(directory):
@@ -98,11 +108,10 @@ def file_manager():
         unzip_file("file.zip")
 
 
-# prepare_directory()
-# remove_directory('temp')
-# remove_directory('final data')
-
-
+#########################################################
+#### Methods for Certs
+#########################################################
+#
 remove_directory('temp')
 remove_directory('final data')
 file_manager()
