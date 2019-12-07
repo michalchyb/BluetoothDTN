@@ -1,4 +1,5 @@
 import os
+import time
 from zipfile import ZipFile
 import shutil
 
@@ -112,17 +113,28 @@ def file_manager():
 #### Methods for Certs
 #########################################################
 def checking_metadata_file_present():
-    list = []
+    counter = 0
     for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
-        if file.startswith('DTN_MASTER_METADATA_'):
-            return True
-        else:
-            return False
+        if file.endswith('metadata.txt'):
+            counter = counter + 1
+
+    return counter
 
 
 def get_file_list_in_directory(path):
     return os.listdir(os.getcwd() + Messages.slash + path)
 
+
+def changed_file_name():
+    if checking_metadata_file_present() != 0:
+        for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
+            if file.endswith('metadata.txt'):
+                new_name = time.strftime("%Y%m%d-%H%M%S") + "_metadata.txt"
+                path = os.getcwd() + Messages.slash + 'temp' + Messages.slash
+                os.rename(path + str(file), path + new_name)
+
+
+changed_file_name()
 # remove_directory('temp')
 # remove_directory('repository')
 # file_manager()
