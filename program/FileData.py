@@ -111,7 +111,7 @@ def file_manager():
 #########################################################
 #### Methods for Certs
 #########################################################
-def checking_metadata_file():
+def checking_metadata_file_present():
     list = []
     for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
         if file.startswith('DTN_MASTER_METADATA_'):
@@ -119,8 +119,10 @@ def checking_metadata_file():
         else:
             return False
 
-checking_metadata_file()
 
-remove_directory('temp')
-remove_directory('repository')
-file_manager()
+def get_file_list_in_directory(path):
+    return os.listdir(os.getcwd() + Messages.slash + path)
+
+# remove_directory('temp')
+# remove_directory('repository')
+# file_manager()
