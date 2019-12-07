@@ -1,4 +1,5 @@
 import os
+import re
 import time
 from zipfile import ZipFile
 import shutil
@@ -134,7 +135,13 @@ def changed_file_name():
                 os.rename(path + str(file), path + new_name)
 
 
-changed_file_name()
+def check_correctness_of_metadate_name():
+    if checking_metadata_file_present() != 0:
+        for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
+            if re.match('\d{8}-\d{6}.*', file):
+                return file
+
 # remove_directory('temp')
 # remove_directory('repository')
 # file_manager()
+# [0-9]{8}-[0-9]{6}
