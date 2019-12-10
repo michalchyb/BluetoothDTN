@@ -1,8 +1,10 @@
 import os
 import re
 import time
+import datetime
 from zipfile import ZipFile
 import shutil
+import platform
 
 from Messages import *
 
@@ -141,7 +143,17 @@ def check_correctness_of_metadate_name():
             if re.match('\d{8}-\d{6}.*', file):
                 return file
 
+
+def get_file_creation_date():
+    for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
+        if re.match('\d{8}-\d{6}.*', file):
+            data = datetime.datetime(int(file[0:4]), int(file[5:6]), int(file[7:8]), int(file[10:11]), int(file[12:13]),
+                                     int(file[14:15]))
+            print data
+
+
+get_file_creation_date()
+
 # remove_directory('temp')
 # remove_directory('repository')
 # file_manager()
-# [0-9]{8}-[0-9]{6}
