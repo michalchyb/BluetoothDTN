@@ -144,16 +144,30 @@ def check_correctness_of_metadate_name():
                 return file
 
 
-def get_file_creation_date():
+def get_files_creation_date():
+    temp_list = []
     for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
         if re.match('\d{8}-\d{6}.*', file):
-            data = datetime.datetime(int(file[0:4]), int(file[5:6]), int(file[7:8]), int(file[10:11]), int(file[12:13]),
-                                     int(file[14:15]))
-            print data
+            data = substrig_date(file)
+            temp_list.append(data)
+
+    comparing_dates(temp_list)
 
 
-get_file_creation_date()
+def substrig_date(file):
+    data = datetime.datetime(int(file[0:4]), int(file[5:6]), int(file[7:8]), int(file[10:11]), int(file[12:13]),
+                             int(file[14:15]))
+    return data
 
+
+def comparing_dates(date_list):
+    if date_list[0] > date_list[1]:
+        print "second file is older"
+    else:
+        print "first is older"
+
+
+get_files_creation_date()
 # remove_directory('temp')
 # remove_directory('repository')
 # file_manager()
