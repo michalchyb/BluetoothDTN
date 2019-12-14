@@ -1,10 +1,9 @@
 # coding=utf-8
 from subprocess import PIPE, Popen
 
-from bluetooth import *
 from Client import *
-from Server import *
 from Messages import *
+from Server import *
 
 
 def find_obex_services_devices():
@@ -19,11 +18,6 @@ def find_obex_services_devices():
         print str(number_of_obex_devices) + " " + Messages.service_is_found
         print "end looking for obex devices..."
         return service_matches
-        # temp_list = []
-        # for i in service_matches:
-        #     # host = i["host"]
-        #     temp_list.append(get_host_data(i))
-        # return temp_list
 
 
 def look_for_all_nearby_devices():

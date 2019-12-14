@@ -6,6 +6,8 @@ from zipfile import ZipFile
 import shutil
 import platform
 
+import sort as sort
+
 from Messages import *
 
 
@@ -105,13 +107,6 @@ def move_file_to_directory(destination_folder_name, file_to_move):
     shutil.move(source_file_path, destination_file_path)
 
 
-def file_manager():
-    prepare_directory()
-    if check_file_existing("file.zip"):
-        move_file_to_directory('temp', 'file.zip')
-        unzip_file("file.zip")
-
-
 #########################################################
 #### Methods for Certs
 #########################################################
@@ -148,13 +143,11 @@ def get_files_creation_date():
     temp_list = []
     for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
         if re.match('\d{8}-\d{6}.*', file):
-            data = substrig_date(file)
+            data = substring_date(file)
             temp_list.append(data)
 
-    comparing_dates(temp_list)
 
-
-def substrig_date(file):
+def substring_date(file):
     data = datetime.datetime(int(file[0:4]), int(file[5:6]), int(file[7:8]), int(file[10:11]), int(file[12:13]),
                              int(file[14:15]))
     return data
@@ -165,6 +158,18 @@ def comparing_dates(date_list):
         print "second file is older"
     else:
         print "first is older"
+
+
+#########################################################
+#### Main method
+#########################################################
+
+
+def file_manager():
+    prepare_directory()
+    if check_file_existing("file.zip"):
+        move_file_to_directory('temp', 'file.zip')
+        unzip_file("file.zip")
 
 
 get_files_creation_date()

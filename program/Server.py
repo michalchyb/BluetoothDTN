@@ -2,7 +2,7 @@ from bluetooth import *
 from FileData import *
 
 
-def run_server(port):
+def run_server():
     server_socket = BluetoothSocket(RFCOMM)
     server_socket.bind(("", 2))
     server_socket.listen(1)
@@ -12,4 +12,3 @@ def run_server(port):
     print "received [%s]" % data
     client_socket.close()
     server_socket.close()
-
