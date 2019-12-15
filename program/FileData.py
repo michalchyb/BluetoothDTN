@@ -5,8 +5,7 @@ import datetime
 from zipfile import ZipFile
 import shutil
 import platform
-
-import sort as sort
+import difflib
 
 from Messages import *
 
@@ -49,7 +48,7 @@ def unzip_file(file_name):
 
 def zip_file():
     with ZipFile('files.zip', 'w') as zipObj:
-        for folderName, subfolders, filenames in os.walk(os.getcwd() + Messages.slash + 'files_to_zip'):
+        for folderName, subfolders, filenames in os.walk(get_project_directory() + 'files_to_zip'):
             for filename in filenames:
                 filePath = os.path.join(folderName, filename)
                 zipObj.write(filePath)
@@ -83,11 +82,11 @@ def create_directory(folder_name):
 
 def remove_directory(folder_name):
     if check_if_directory_existing(folder_name):
-        shutil.rmtree(os.getcwd() + Messages.slash + folder_name)
+        shutil.rmtree(get_project_directory() + folder_name)
 
 
 def check_if_directory_existing(directory):
-    return os.path.isdir(os.getcwd() + Messages.slash + directory)
+    return os.path.isdir(get_project_directory() + directory)
 
 
 def check_file_existing(file_name):
@@ -112,7 +111,7 @@ def move_file_to_directory(destination_folder_name, file_to_move):
 #########################################################
 def checking_metadata_file_present():
     counter = 0
-    for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
+    for file in os.listdir(get_project_directory() + 'temp'):
         if file.endswith('metadata.txt'):
             counter = counter + 1
 
@@ -120,31 +119,32 @@ def checking_metadata_file_present():
 
 
 def get_file_list_in_directory(path):
-    return os.listdir(os.getcwd() + Messages.slash + path)
+    return os.listdir(get_project_directory() + path)
 
 
 def changed_file_name():
     if checking_metadata_file_present() != 0:
-        for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
+        for file in os.listdir(get_project_directory() + 'temp'):
             if file.endswith('metadata.txt'):
                 new_name = time.strftime("%Y%m%d-%H%M%S") + "_metadata.txt"
-                path = os.getcwd() + Messages.slash + 'temp' + Messages.slash
+                path = get_project_directory() + 'temp' + Messages.slash
                 os.rename(path + str(file), path + new_name)
 
 
 def check_correctness_of_metadate_name():
     if checking_metadata_file_present() != 0:
-        for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
+        for file in os.listdir(get_project_directory() + 'temp'):
             if re.match('\d{8}-\d{6}.*', file):
                 return file
 
 
 def get_files_creation_date():
     temp_list = []
-    for file in os.listdir(os.getcwd() + Messages.slash + 'temp'):
+    for file in os.listdir(get_project_directory() + 'temp'):
         if re.match('\d{8}-\d{6}.*', file):
             data = substring_date(file)
             temp_list.append(data)
+    return temp_list
 
 
 def substring_date(file):
@@ -172,7 +172,24 @@ def file_manager():
         unzip_file("file.zip")
 
 
-get_files_creation_date()
+def check_if_data_existing():
+    return check_file_existing("data.txt")
+
+
+def get_difference_between_files():
+    text1 = open(get_project_directory() + 'temp' + Messages.slash + "20191207-123446_metadata.txt").readlines()
+    text2 = open(get_project_directory() + 'temp' + Messages.slash + "20191207-123447_metadata.txt").readlines()
+
+    for line in difflib.unified_diff(text1, text2):
+        print line,
+
+
+def get_project_directory():
+    return os.getcwd() + Messages.slash
+
+
+get_difference_between_files()
+
 # remove_directory('temp')
 # remove_directory('repository')
 # file_manager()
