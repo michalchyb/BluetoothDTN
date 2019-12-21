@@ -1,11 +1,10 @@
+import datetime
+import difflib
 import os
 import re
-import time
-import datetime
-from zipfile import ZipFile
 import shutil
-import platform
-import difflib
+import time
+from zipfile import ZipFile
 
 from Messages import *
 
@@ -177,8 +176,17 @@ def check_if_data_existing():
 
 
 def get_difference_between_files():
-    text1 = open(get_project_directory() + 'temp' + Messages.slash + "20191207-123446_metadata.txt").readlines()
-    text2 = open(get_project_directory() + 'temp' + Messages.slash + "20191207-123447_metadata.txt").readlines()
+    text1 = ""
+    text2 = ""
+    all_files_list = get_file_list_in_directory('temp' + Messages.slash)
+    temp_list = []
+    for file in all_files_list:
+        if re.match('\d{8}-\d{6}.*', file):
+            temp_list.append(file)
+
+    for file in temp_list:
+        text1 = open(get_project_directory() + 'temp' + Messages.slash + temp_list[0]).readlines()
+        text2 = open(get_project_directory() + 'temp' + Messages.slash + temp_list[1]).readlines()
 
     for line in difflib.unified_diff(text1, text2):
         print line,
