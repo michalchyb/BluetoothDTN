@@ -1,13 +1,28 @@
-import os
-import time
+from time import sleep
+
+import RPi.GPIO as GPIO
+
+PWR_LED = 35
 
 
-def blinking_leds():
-    os.system("echo gpio | sudo tee /sys/class/leds/led1/trigger")
-    time.sleep(1)
-    os.system("echo input | sudo tee /sys/class/leds/led1/trigger")
-    time.sleep(1)
-    os.system("echo gpio | sudo tee /sys/class/leds/led1/trigger")
-    time.sleep(1)
-    os.system("echo cpu0 | sudo tee /sys/class/leds/led1/trigger")
+def pwr_led_off():
+    GPIO.setup(PWR_LED, GPIO.OUT, initial=GPIO.LOW)
 
+
+def pwr_led_on():
+    GPIO.setup(PWR_LED, GPIO.IN)
+
+
+def blinking_led():
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    pwr_led_on()
+    sleep(1)
+    pwr_led_off()
+    sleep(1)
+    pwr_led_on()
+    pwr_led_off()
+    sleep(1)
+
+
+blinking_led()
