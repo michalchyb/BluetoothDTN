@@ -26,3 +26,7 @@ bluetooth.btcommon.BluetoothError: (22, 'Invalid argument')
 
 # Start OBEX
 sudo obexpushd -B -n
+
+# Restart ssh
+sudo systemctl enable ssh
+sudo systemctl start ssh
