@@ -21,8 +21,10 @@ def blinking_led():
     pwr_led_off()
     sleep(1)
     pwr_led_on()
+    sleep(1)
     pwr_led_off()
     sleep(1)
+    pwr_led_on()
 
 
 blinking_led()

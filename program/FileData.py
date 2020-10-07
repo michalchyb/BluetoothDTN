@@ -10,7 +10,7 @@ from Messages import *
 
 
 #########################################################
-#### Methods for reading/writing files
+# Methods for reading/writing files
 #########################################################
 def read_file():
     with open('fileToSend.txt', 'r') as file:
@@ -24,7 +24,7 @@ def write_file(data):
 
 
 def read_zip_file():
-    f = open("file.zip", "rb")
+    f = open("files.zip", "rb")
     file = f.read()
     f.close()
     return file
@@ -37,7 +37,7 @@ def write_zip_file(data):
 
 
 #########################################################
-#### Methods for zip
+# Methods for zip
 #########################################################
 
 def unzip_file(file_name):
@@ -47,14 +47,14 @@ def unzip_file(file_name):
 
 def zip_file():
     with ZipFile('files.zip', 'w') as zipObj:
-        for folderName, subfolders, filenames in os.walk(get_project_directory() + 'files_to_zip'):
+        for folder_name, sub_folders, filenames in os.walk(get_project_directory() + 'files_to_zip'):
             for filename in filenames:
-                filePath = os.path.join(folderName, filename)
-                zipObj.write(filePath)
+                file_path = os.path.join(folder_name, filename)
+                zipObj.write(file_path)
 
 
 #########################################################
-#### Methods for handling files
+# Methods for handling files
 #########################################################
 def get_current_path():
     return os.path.dirname(os.path.abspath(__file__))
@@ -74,9 +74,9 @@ def create_directory(folder_name):
     try:
         os.mkdir(path + Messages.slash + folder_name)
     except OSError:
-        print ("Directory %s already existed or creation of the directory %s failed" % (path, path))
+        print("Directory %s already existed or creation of the directory %s failed" % (path, path))
     else:
-        print ("Successfully created the directory %s " % path)
+        print("Successfully created the directory %s " % path)
 
 
 def remove_directory(folder_name):
@@ -101,12 +101,13 @@ def prepare_directory():
 
 def move_file_to_directory(destination_folder_name, file_to_move):
     source_file_path = get_current_path() + Messages.slash + file_to_move
-    destination_file_path = get_current_path() + Messages.slash + destination_folder_name + Messages.slash + file_to_move
+    destination_file_path = get_current_path() + Messages.slash + destination_folder_name + Messages.slash + \
+                            file_to_move
     shutil.move(source_file_path, destination_file_path)
 
 
 #########################################################
-#### Methods for Certs
+# Methods for Certs
 #########################################################
 def checking_metadata_file_present():
     counter = 0
@@ -130,7 +131,7 @@ def changed_file_name():
                 os.rename(path + str(file), path + new_name)
 
 
-def check_correctness_of_metadate_name():
+def check_correctness_of_metadata_name():
     if checking_metadata_file_present() != 0:
         for file in os.listdir(get_project_directory() + 'temp'):
             if re.match('\d{8}-\d{6}.*', file):
@@ -154,13 +155,13 @@ def substring_date(file):
 
 def comparing_dates(date_list):
     if date_list[0] > date_list[1]:
-        print "second file is older"
+        print("second file is older")
     else:
-        print "first is older"
+        print("first is older")
 
 
 #########################################################
-#### Main method
+# Main method
 #########################################################
 
 
@@ -189,7 +190,7 @@ def get_difference_between_files():
         text2 = open(get_project_directory() + 'temp' + Messages.slash + temp_list[1]).readlines()
 
     for line in difflib.unified_diff(text1, text2):
-        print line,
+        print(line),
 
 
 def get_project_directory():
@@ -200,4 +201,4 @@ get_difference_between_files()
 
 # remove_directory('temp')
 # remove_directory('repository')
-# file_manager()
+file_manager()
