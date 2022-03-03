@@ -20,7 +20,7 @@ def find_obex_services_devices():
         print("end looking for obex devices...")
         return service_matches
 
-
+# not used because of device_inquiry_with_with_rssi.__globals__.get('dictionary')
 def look_for_all_nearby_devices():
     print("performing inquiry...")
     nearby_devices = discover_devices(lookup_names=True)

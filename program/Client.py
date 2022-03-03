@@ -17,7 +17,7 @@ def run_client(host):
 
 def set_port(host):
     port = 0
-    if host == "5C:F3:70:6C:73:3B":
+    if host == "5C:F3:70:6C:72:02":
         port = 2
     return port
 

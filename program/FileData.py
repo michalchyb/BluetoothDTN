@@ -34,6 +34,7 @@ def write_zip_file(data):
     f = open("file.zip", "wb")
     f.write(data)
     f.close()
+    file_manager()
 
 
 #########################################################
@@ -166,6 +167,7 @@ def comparing_dates(date_list):
 
 
 def file_manager():
+    print ("file manager entry")
     prepare_directory()
     if check_file_existing("file.zip"):
         move_file_to_directory('temp', 'file.zip')
@@ -197,8 +199,7 @@ def get_project_directory():
     return os.getcwd() + Messages.slash
 
 
-get_difference_between_files()
-
+# get_difference_between_files()
 # remove_directory('temp')
 # remove_directory('repository')
-file_manager()
+# file_manager()

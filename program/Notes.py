@@ -98,7 +98,7 @@ def run_client(name, host, port):
         client_socket = BluetoothSocket(RFCOMM)
         client_socket.connect(("5C:F3:70:6C:72:02", 3))
         client_socket.send("Hello World")
-        print "Finished"
+        print ("Finished")
         client_socket.close()
 
 
@@ -122,7 +122,7 @@ PROGRAM_TIME_START = time.time()
 WAIT_SECONDS_FOR_THREAD = 15
 rssi_value = -50
 
-print "start of program"
+print ("start of program")
 while time.time() < PROGRAM_TIME_START + PROGRAM_WILL_WORK_FOR_THIS_TIME:
     # temp = create_MAC_and_RSSI_dictionary(cmd_line(Messages.linux_command_for_searching_devices))
     # temp = create_MAC_and_RSSI_dictionary(cmd_line(temporary_string_with_tests_values))
@@ -136,7 +136,7 @@ while time.time() < PROGRAM_TIME_START + PROGRAM_WILL_WORK_FOR_THIS_TIME:
     main(list_of_trusted_devices, temp, obex_devices_which_can_send_and_receive_messages, rssi_value)
     time.sleep(WAIT_SECONDS_FOR_THREAD)
 
-print "end of program"
+print ("end of program")
 
 ---------------------------------------------
 f = open("test.zip", "rb")

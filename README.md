@@ -30,3 +30,7 @@ sudo obexpushd -B -n
 # Restart ssh
 sudo systemctl enable ssh
 sudo systemctl start ssh
+
+
+# bluetooth.error: (98, 'Address already in use')
+ps -fA | grep python

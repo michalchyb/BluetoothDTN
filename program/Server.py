@@ -11,10 +11,9 @@ def run_server():
     client_socket, address = server_socket.accept()
     data = client_socket.recv(1024)
     write_zip_file(data)
-    print("received [%s]" % data)
+    print("received file successfully")
     client_socket.close()
     server_socket.close()
     print('Server finished')
-
 
 # run_server()
